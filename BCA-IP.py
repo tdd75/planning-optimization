@@ -1,6 +1,7 @@
 import numpy as np
 from ortools.linear_solver import pywraplp
 
+
 def input(filename):
     with open(filename, 'r') as f:
         [M, N] = [int(x) for x in f.readline().split()]
