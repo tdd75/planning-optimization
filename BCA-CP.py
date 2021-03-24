@@ -81,6 +81,6 @@ if status == cp_model.OPTIMAL:
             if solver.Value(x[i]) == g:
                 info += str(i) + ' '
         info += ' => load = ' + str(solver.Value(load[g]))
-        print("class assigned to teacher", g , '=', info)
+        print("class assigned to teacher", g, '=', info)
 else:
     print('Not found')
