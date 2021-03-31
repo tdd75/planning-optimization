@@ -89,9 +89,16 @@ def solve():
               v, 'violations = ', violations())
         if v == 0:
             print(x)
+            for i in range(n):
+                for j in range(n):
+                    if x[i] == j:
+                        print('X', end = " ")
+                    else:
+                        print('O', end = " ")
+                print()
             break
 
 
-n = 10
+n = 7
 x = [0 for i in range(n)]
 solve()
