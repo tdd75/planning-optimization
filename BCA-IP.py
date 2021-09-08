@@ -23,7 +23,6 @@ for i in range(len(list_class)):
     for j in list_class[i]:
         tc[i][j] = 1
 
-
 f = [[0 for i in range(N)] for j in range(N)]
 for i in range(len(conflict)):
     c1 = conflict[i][0]
@@ -50,11 +49,13 @@ for i in range(M):
             c.SetCoefficient(x[j][i], 1)
 
 # Conflict
-for k in range(M):
-    if f[i][j] == 1:
-        c = solver.Constraint(0, 1)
-        c.SetCoefficient(x[i][k], 1)
-        c.SetCoefficient(x[j][k], 1)
+for i in range(M):
+    for j in range(N):
+        if f[i][j] == 1:
+            for k in range(M):
+                c = solver.Constraint(0, 1)
+                c.SetCoefficient(x[i][k], 1)
+                c.SetCoefficient(x[j][k], 1)
 
 for i in range(N):
     c = solver.Constraint(1, 1)
@@ -74,7 +75,7 @@ obj.SetCoefficient(y, 1)
 obj.SetMinimization()
 
 result_status = solver.Solve()
-
+print('status', result_status)
 # The problem has an optimal solution
 assert result_status == pywraplp.Solver.OPTIMAL
 print('objective = ', solver.Objective().Value())
@@ -84,8 +85,8 @@ for i in range(N):
             print('Class ', i, 'assigned to teacher', j)
 
 for j in range(M):
-    info = ' '
+    info = ''
     for i in range(N):
         if x[i][j].solution_value() > 0:
             info = info + str(i) + ' '
-    print('teacher', j, ' : ', info)
+    print('Teacher {}: {}'.format(j, info))

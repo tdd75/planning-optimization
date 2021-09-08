@@ -1,5 +1,4 @@
 from ortools.linear_solver import pywraplp
-
 class SubSetGeneration:
     def __init__(self, n):
         self.n = n
@@ -25,9 +24,16 @@ class SubSetGeneration:
         self.Try(0)
         return self.subset
 
+def input(filename):
+    with open(filename, 'r') as f:
+        [n] = [int(x) for x in f.readline().split()]
+        # print(f.readline())
+        c = []
+        for i in range(n):
+            c.append([int(x) for x in f.readline().split()])
+        return n, c
 
-c = [[0,6,4,2],[5,0,6,1],[1,2,0,8],[3,2,5,0]]
-n = len(c)
+n, c = input('TSP-10.txt')
 
 SG = SubSetGeneration(n)
 subsets = SG.generate()
@@ -59,8 +65,8 @@ for s in subsets:
 obj = solver.Objective()
 for i in range(n):
     for j in range(n):
-            if i != j:
-                obj.SetCoefficient(x[i, j], c[i][j])
+        if i != j:
+            obj.SetCoefficient(x[i, j], c[i][j])
 obj.SetMinimization()
 
 result_status = solver.Solve()
@@ -69,6 +75,6 @@ assert result_status == pywraplp.Solver.OPTIMAL
 print('objective = ', solver.Objective().Value())
 
 for i in range(n):
-	for j in range(n):
-		if i !=j and x[i, j].solution_value() > 0:
-			print(i,j)
+    for j in range(n):
+        if i != j and x[i, j].solution_value() > 0:
+            print(i, j)

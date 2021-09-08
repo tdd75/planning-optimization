@@ -23,4 +23,4 @@ solver = cp_model.CpSolver()
 status = solver.Solve(model)
 
 for i in range(n):
-    print('x[', i, '] =', solver.Value(x[i]))
+    print('x[' + str(i) + '] =', solver.Value(x[i]))

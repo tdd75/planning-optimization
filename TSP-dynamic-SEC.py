@@ -1,10 +1,10 @@
 from ortools.linear_solver import pywraplp
 import numpy as np
-
+import random as rd
 
 def genData(filename, n):
     f = open(filename, 'w')
-    f.write(str[n] + '\n')
+    f.write(str(n) + '\n')
     for i in range(n):
         s = ''
         for j in range(n):
@@ -12,7 +12,6 @@ def genData(filename, n):
             s = s+str(x) + ' '
         f.write(s+'\n')
     f.close()
-
 
 def input(filename):
     with open(filename, 'r') as f:
@@ -24,8 +23,7 @@ def input(filename):
         return n, c
 
 
-n, c = input('TSP-100.txt')
-
+n, c = input('TSP-10.txt')
 
 def CreateSolverAndVariable(n, c):
     solver = pywraplp.Solver.CreateSolver('CBC')
